@@ -6,10 +6,10 @@
             <p class="text-gray-600 text-lg">Testimoni dari penghuni yang puas</p>
         </div>
 
-        <div class="grid md:grid-cols-3 gap-8">
+        <div class="grid md:grid-cols-3 gap-8 overflow-x-auto snap-x snap-mandatory md:overflow-visible md:snap-none scroll-smooth">
 
             @forelse ($testimonis as $item)
-                <div class="bg-white p-6 rounded-xl shadow-lg">
+                <div class="bg-white p-6 rounded-xl shadow-lg snap-center min-w-[85%] sm:min-w-[45%] md:min-w-0">
                     
                     {{-- Profile --}}
                     <div class="flex items-center mb-4">

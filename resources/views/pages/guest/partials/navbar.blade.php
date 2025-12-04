@@ -1,14 +1,14 @@
  
  <div id="overlay" class="overlay"></div>
 
- <nav class="navbar-glass  fixed w-full top-0 z-50">
+ <nav class="navbar-glass   fixed w-full top-0 z-50">
      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
          <div class="flex justify-between items-center h-20">
              <!-- Logo Section -->
              <a href="/" class="logo-wrapper flex items-center space-x-3">
                  <div class="relative">
 
-                     <img class="relative w-12 h-12 rounded-xl" src="{{ asset('storage/' . setting('site_logo')) }}"
+                     <img class="relative w-10 h-10 md:w-12 md:h-12 rounded-xl" src="{{ asset('storage/' . setting('site_logo')) }}"
                          alt="KostQu Logo">
                  </div>
                  <span

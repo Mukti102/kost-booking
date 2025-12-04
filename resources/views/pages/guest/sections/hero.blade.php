@@ -1,5 +1,5 @@
  <!-- Hero Section with Slider -->
-    <section id="home" class="relative mt-16">
+    <section id="home" class="relative mt-10 md:mt-16">
         <div class="hero-slider overflow-hidden">
             <div class="slide-container flex transition-transform duration-500" id="slideContainer">
                 <!-- Slide 1 -->
