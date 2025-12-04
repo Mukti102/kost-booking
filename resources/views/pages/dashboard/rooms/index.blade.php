@@ -39,9 +39,9 @@
                                 <td>Rp {{ number_format($item->tarif, 0, ',', '.') }}</td>
                                 <td>{{ $item->fasilities->count() }} Fasilitas</td>
                                 @if ($item->status == 'belum terpakai')
-                                    <td><span class="badge bg-warning">{{ $item->status }}</span></td>
+                                    <td><span class="badge bg-success">Tersedia</span></td>
                                 @else
-                                    <td><span class="badge bg-success">{{ $item->status }}</span></td>
+                                    <td><span class="badge bg-danger">Penuh</span></td>
                                 @endif
                                 <td>
                                     <button class="btn btn-sm btn-info" data-bs-toggle="modal"
@@ -53,6 +53,13 @@
                                     <a href="{{ route('rooms.edit', $item->id) }}" class="btn btn-sm btn-warning">
                                         <i class="bi bi-pencil"></i>
                                     </a>
+
+                                    
+                                    <a href="{{ route('images.index', $item->id) }}" class="btn btn-sm btn-secondary">
+                                       <i class="fa-solid fa-image"></i>
+                                    </a>
+
+
 
                                     <!-- Delete -->
                                     <form action="{{ route('rooms.destroy', $item->id) }}" method="POST"

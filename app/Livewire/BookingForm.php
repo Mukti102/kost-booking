@@ -26,7 +26,7 @@ class BookingForm extends Component
 
     public $showModal = false;
     public $payment_proof;
-    public $bankAccount = "1234567890 - BRI a/n Kost Indah"; // contoh no rekening
+    public $bankAccount; // contoh no rekening
 
 
     public function mount($room)
@@ -47,7 +47,8 @@ class BookingForm extends Component
 
     public function openConfirmModal()
     {
-        // dd($this->full_name,$this->email,$this->gender,$this->phone,$this->address,$this->typePayment,$this->duration);
+        $bankAccount = TypePayment::find($this->typePayment);
+        $this->bankAccount = $bankAccount;
         $this->validate();
 
         $this->showModal = true;

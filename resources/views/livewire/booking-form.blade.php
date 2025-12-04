@@ -2,7 +2,7 @@
 <div>
     <div class="lg:col-span-1 mt-4">
         <div class="sticky top-8 bg-white rounded-xl shadow-xl p-6 border border-indigo-200">
-            <h2 class="text-2xl font-bold text-indigo-600 mb-4">Formulir Booking Kamar</h2>
+            <h2 class="text-2xl font-bold text-primary mb-4">Formulir Booking Kamar</h2>
 
             <div id="price-card" class="mb-4 p-4 bg-indigo-50 rounded-lg border border-indigo-300">
                 <p class="text-sm font-semibold text-indigo-700 mb-1">Harga per Bulan</p>
@@ -55,8 +55,7 @@
 
                 <!-- Email (Tenant: email) -->
                 <div class="mb-4">
-                    <label for="email" 
-                        class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                    <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
                     <input type="email" wire:model="email" id="email" name="email" required
                         class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500">
                 </div>
@@ -103,7 +102,7 @@
 
                 <!-- Submit Button -->
                 <button type="submit"
-                    class="w-full bg-indigo-600 text-white font-bold py-3 px-4 rounded-xl hover:bg-indigo-700 transition duration-300 shadow-md hover:shadow-lg focus:outline-none focus:ring-4 focus:ring-indigo-500 focus:ring-opacity-50">
+                    class="w-full bg-primary text-white font-bold py-3 px-4 rounded-xl hover:bg-indigo-700 transition duration-300 shadow-md hover:shadow-lg focus:outline-none focus:ring-4 focus:ring-indigo-500 focus:ring-opacity-50">
                     Booking Sekarang & Bayar DP
                 </button>
             </form>
@@ -116,7 +115,7 @@
         <div class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
             <div class="bg-white rounded-xl p-6 w-full max-w-lg shadow-xl">
 
-                <h3 class="text-xl font-bold mb-3 text-indigo-600">Konfirmasi Booking</h3>
+                <h3 class="text-xl font-bold mb-3 text-primary">Konfirmasi Booking</h3>
 
                 <p class="text-sm text-gray-600 mb-4">Silahkan cek detail booking dan upload bukti pembayaran.</p>
 
@@ -131,7 +130,7 @@
 
                 <div class="bg-indigo-50 border border-indigo-200 p-3 rounded-lg mb-4">
                     <p class="font-semibold text-indigo-700">TRANSFER DP KE REKENING:</p>
-                    <p class="text-indigo-900 font-bold">{{ $bankAccount }}</p>
+                    <p class="text-indigo-900 font-bold">{{ $bankAccount->no_rekening }}</p>
                 </div>
 
                 <label class="block text-sm font-semibold text-gray-700 mb-2">Upload Bukti Pembayaran</label>
@@ -148,7 +147,7 @@
                     </button>
 
                     <button wire:click="submitBooking"
-                        class="px-4 py-2 rounded-lg bg-indigo-600 text-white hover:bg-indigo-700">
+                        class="px-4 py-2 rounded-lg bg-primary text-white hover:bg-indigo-700">
                         Konfirmasi & Booking
                     </button>
                 </div>

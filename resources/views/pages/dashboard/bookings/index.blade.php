@@ -19,7 +19,8 @@
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>Kode Penyewaan</th>
+                            <th>Kode Booking</th>
+                            <th>Type Kamar</th>
                             <th>Nama Penyewa</th>
                             <th>Tarif</th>
                             <th>Status</th>
@@ -31,8 +32,10 @@
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $item->code }}</td>
+                                <td>{{ $item->room->name }}</td>
                                 <td>{{ $item->tenant->full_name }}</td>
-                                <td>{{ $item->room->tarif }}</td>
+                                <td>Rp {{ number_format($item->room->tarif, 0, ',', '.') }}</td>
+
                                 <td>
                                     @if ($item->status == 'diterima')
                                         <span class=" badge bg-success">Diterima</span>

@@ -2,8 +2,9 @@
     <div class="sidebar-wrapper active">
         <div class="sidebar-header position-relative">
             <div class="d-flex justify-content-between align-items-center">
-                <div class="logo">
-                    <a href="index.html"><img src="./assets/compiled/svg/logo.svg" alt="Logo" srcset="" /></a>
+                <div class="" style="width: 100px;height: 80px;">
+                    <a href="{{ route('dashboard') }}"><img style="width: 100%;height: 100%;object-fit: contain"
+                            src="{{ asset('storage/' . setting('site_logo')) }}" alt="Logo" srcset="" /></a>
                 </div>
                 <div class="theme-toggle d-flex gap-2 align-items-center mt-2">
                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -43,7 +44,7 @@
                 <li class="sidebar-title">Menu</li>
 
                 <li class="sidebar-item {{ request()->routeIs('dashboard*') ? 'active' : '' }}">
-                    <a href="index.html" class="sidebar-link">
+                    <a href="{{ route('dashboard') }}" class="sidebar-link">
                         <i class="bi bi-grid-fill"></i>
                         <span>Dashboard</span>
                     </a>
@@ -62,7 +63,7 @@
                             <a href="{{ route('fasilities.index') }}" class="submenu-link">Data Fasilitas</a>
                         </li>
                         <li class="submenu-item {{ request()->routeIs('rooms.*') ? 'active' : '' }}">
-                            <a href="{{ route('rooms.index') }}" class="submenu-link">Data Kamar</a>
+                            <a href="{{ route('rooms.index') }}" class="submenu-link">Data Type Kamar</a>
                         </li>
                     </ul>
                 </li>
@@ -70,34 +71,53 @@
                 <li class="sidebar-title">Penghuni Dan Penyewaan</li>
                 <li class="sidebar-item {{ request()->routeIs('tenants.*') ? 'active' : '' }}">
                     <a href="{{ route('tenants.index') }}" class="sidebar-link">
-                        <i class="bi bi-grid-fill"></i>
+                        <i class="fa-solid fa-users"></i>
                         <span>Penghuni</span>
                     </a>
                 </li>
                 <li class="sidebar-item {{ request()->routeIs('bookings.*') ? 'active' : '' }}">
                     <a href="{{ route('bookings.index') }}" class="sidebar-link">
-                        <i class="bi bi-users"></i>
-                        <span>Penyewaan Kost</span>
+                        <i class="fa-solid fa-cash-register"></i>
+                        <span>Penyewaan</span>
+                    </a>
+                </li>
+                <li class="sidebar-item {{ request()->routeIs('testimoni.*') ? 'active' : '' }}">
+                    <a href="{{ route('testimoni.index') }}" class="sidebar-link">
+                        <i class="fa-solid fa-message"></i>
+                        <span>Testimoni</span>
                     </a>
                 </li>
                 <li class="sidebar-title">Jenis Pembayaran</li>
                 <li class="sidebar-item {{ request()->routeIs('type-payments.*') ? 'active' : '' }}">
                     <a href="{{ route('type-payments.index') }}" class="sidebar-link">
-                        <i class="bi bi-grid-fill"></i>
+                        <i class="fa-solid fa-credit-card"></i>
                         <span>Jenis Pembayaran</span>
                     </a>
                 </li>
-
-                {{-- logout --}}
-                <li class="sidebar-item">
-                    <form action="{{ route('logout') }}" method="POST">
+                <li class="sidebar-title">Setting</li>
+                <li class="sidebar-item {{ request()->routeIs('profile.*') ? 'active' : '' }}">
+                    <a href="{{ route('profile.edit') }}" class="sidebar-link">
+                        <i class="fa-solid fa-user"></i>
+                        <span>Profile</span>
+                    </a>
+                </li>
+                <li class="sidebar-item {{ request()->routeIs('settings*') ? 'active' : '' }}">
+                    <a href="{{ route('settings.index') }}" class="sidebar-link">
+                        <i class="fa-solid fa-cog"></i>
+                        <span>Setting</span>
+                    </a>
+                </li>
+                <li class="sidebar-item mt-3">
+                    <form id="logoutForm" action="{{ route('logout') }}" method="POST">
                         @csrf
-                        <button type="submit" class="sidebar-link btn btn-link p-0 m-0">
-                            <i class="bi bi-box-arrow-left"></i>
-                            <span>Logout</span>
+                        <button type="button" class="btn btn-danger w-100 d-flex align-items-center gap-2 fw-bold"
+                            onclick="if(confirm('Yakin ingin logout?')) document.getElementById('logoutForm').submit()">
+                            Logout
                         </button>
                     </form>
+
                 </li>
+
 
             </ul>
         </div>

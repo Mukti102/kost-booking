@@ -10,10 +10,10 @@
                         <div class="text-center text-white px-4">
                             <h1 class="text-5xl font-bold mb-4">Temukan Hunian Nyaman Anda</h1>
                             <p class="text-xl mb-8">Kost modern dengan fasilitas lengkap di lokasi strategis</p>
-                            <button
-                                class="bg-indigo-600 text-white px-8 py-3 rounded-lg text-lg hover:bg-indigo-700 transition">
+                            <a href="#rooms"
+                                class="booking-btn text-white px-8 py-3 rounded-lg text-lg hover:bg-indigo-700 transition">
                                 Lihat Kamar
-                            </button>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -25,10 +25,10 @@
                         <div class="text-center text-white px-4">
                             <h1 class="text-5xl font-bold mb-4">Fasilitas Premium</h1>
                             <p class="text-xl mb-8">WiFi cepat, AC, dan keamanan 24 jam</p>
-                            <button
-                                class="bg-indigo-600 text-white px-8 py-3 rounded-lg text-lg hover:bg-indigo-700 transition">
+                            <a href="#about"
+                                class="booking-btn text-white px-8 py-3 rounded-lg text-lg hover:bg-indigo-700 transition">
                                 Pelajari Lebih Lanjut
-                            </button>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -40,10 +40,10 @@
                         <div class="text-center text-white px-4">
                             <h1 class="text-5xl font-bold mb-4">Lokasi Strategis</h1>
                             <p class="text-xl mb-8">Dekat kampus, pusat bisnis, dan transportasi umum</p>
-                            <button
-                                class="bg-indigo-600 text-white px-8 py-3 rounded-lg text-lg hover:bg-indigo-700 transition">
+                            <a href="#contact"
+                                class="booking-btn text-white px-8 py-3 rounded-lg text-lg hover:bg-indigo-700 transition">
                                 Cek Lokasi
-                            </button>
+                            </a>
                         </div>
                     </div>
                 </div>

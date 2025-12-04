@@ -16,15 +16,15 @@
                     </p>
                     <div class="grid grid-cols-3 gap-4">
                         <div class="text-center">
-                            <div class="text-3xl font-bold text-indigo-600 mb-2">500+</div>
+                            <div class="text-3xl font-bold text-primary mb-2">500+</div>
                             <div class="text-sm text-gray-600">Penghuni Puas</div>
                         </div>
                         <div class="text-center">
-                            <div class="text-3xl font-bold text-indigo-600 mb-2">50+</div>
+                            <div class="text-3xl font-bold text-primary mb-2">50+</div>
                             <div class="text-sm text-gray-600">Kamar Tersedia</div>
                         </div>
                         <div class="text-center">
-                            <div class="text-3xl font-bold text-indigo-600 mb-2">10+</div>
+                            <div class="text-3xl font-bold text-primary mb-2">10+</div>
                             <div class="text-sm text-gray-600">Tahun Berpengalaman</div>
                         </div>
                     </div>
@@ -32,7 +32,7 @@
                 <div class="relative">
                     <img src="https://images.unsplash.com/photo-1556020685-ae41abfc9365?w=600" alt="About"
                         class="rounded-lg shadow-xl">
-                    <div class="absolute -bottom-6 -left-6 bg-indigo-600 text-white p-6 rounded-lg shadow-xl">
+                    <div class="absolute -bottom-6 -left-6 booking-btn text-white p-6 rounded-lg shadow-xl">
                         <div class="text-3xl font-bold">4.8/5</div>
                         <div class="text-sm">Rating Penghuni</div>
                     </div>

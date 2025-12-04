@@ -14,6 +14,9 @@ export default {
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
+            colors: {
+                primary: 'oklch(62.3% 0.214 259.815)',   // Indigo
+            }
         },
     },
 

@@ -101,10 +101,24 @@
                 </ol>
             </div>
 
-            <a href="/"
-                class="inline-block mt-8 bg-indigo-600 text-white font-bold py-3 px-8 rounded-xl hover:bg-indigo-700 transition duration-300 shadow-md">
-                Kembali ke Beranda
-            </a>
+            <div class="d-flex">
+                <a href="/"
+                    class="inline-block mt-8 bg-indigo-600 text-white font-bold py-3 px-8 rounded-xl hover:bg-indigo-700 transition duration-300 shadow-md">
+                    Kembali ke Beranda
+                </a>
+                @php
+                    $waNumber = setting('whatsapp'); // format 628xxxx
+                    $message = urlencode(
+                        "Halo Admin, saya ingin mengkonfirmasi booking saya dengan kode *{$booking->code}*. Mohon bantuannya ya.",
+                    );
+                @endphp
+
+                <a href="https://wa.me/{{ $waNumber }}?text={{ $message }}"
+                    class="inline-block mt-8 bg-green-600 text-white font-bold py-3 px-8 rounded-xl hover:bg-green-700 transition duration-300 shadow-md">
+                    Konfirmasi WhatsApp
+                </a>
+            </div>
+
 
         </div>
     </div>
