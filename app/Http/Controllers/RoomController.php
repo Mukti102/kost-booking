@@ -39,6 +39,7 @@ class RoomController extends Controller
             'tarif' => 'required|numeric',
             'status' => 'required|in:belum terpakai,terpakai',
             'description' => 'nullable|string',
+            'duration' => 'required|in:bulan,tahun',
 
             // tambahan facilities
             'fasilities' => 'required|array',
@@ -96,6 +97,8 @@ class RoomController extends Controller
             'tarif' => 'required|numeric',
             'status' => 'required|in:belum terpakai,terpakai',
             'description' => 'nullable|string',
+            'duration' => 'required|in:bulan,tahun',
+
 
             // fasilities
             'fasilities' => 'required|array',

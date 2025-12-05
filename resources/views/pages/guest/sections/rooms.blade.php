@@ -63,10 +63,9 @@
                                      {{ formatShort($room->tarif) }}
                                  </span>
 
-                                 <span class="text-gray-500">/bulan</span>
+                                 <span class="text-gray-500 capitalize">/{{ $room->duration }}</span>
                              </div>
-                             <button
-                                 class="booking-btn text-white px-4 py-2 rounded-lg transition">
+                             <button class="booking-btn text-white px-4 py-2 rounded-lg transition">
                                  Booking
                              </button>
                          </div>

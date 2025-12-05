@@ -31,21 +31,19 @@
                             <div class=" mb-3">
                                 <label class="mb-2">Nama</label>
                                 <input type="text" name="name"
-                                    class="form-control @error('name') is-invalid @enderror"
-                                   >
+                                    class="form-control @error('name') is-invalid @enderror">
 
                                 @error('name')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
 
-                            
+
                             {{-- kamar tersedia --}}
                             <div class=" mb-3">
                                 <label class="mb-2">Kamar Tersedia</label>
                                 <input type="number" name="kamar_tersedia"
-                                    class="form-control @error('kamar_tersedia') is-invalid @enderror"
-                                   >
+                                    class="form-control @error('kamar_tersedia') is-invalid @enderror">
 
                                 @error('kamar_tersedia')
                                     <small class="text-danger">{{ $message }}</small>
@@ -59,11 +57,26 @@
                                 <label class="mb-2">Tarif</label>
                                 <div class="input-group mb-3">
                                     <span class="input-group-text" id="basic-addon1">Rp</span>
-                                    <input name="tarif" type="number" class="form-control" placeholder="Tarif Perbulan"
+                                    <input name="tarif" type="number" class="form-control" placeholder="Tarif"
                                         aria-label="Username" aria-describedby="basic-addon1">
                                 </div>
 
                                 @error('tarif')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                            {{-- duration --}}
+                            <div class=" mb-3">
+                                <label class="mb-2">Durasi</label>
+                                <select name="duration" class="form-control @error('duration') is-invalid @enderror">
+                                    <option value="">-- Pilih Durasi --</option>
+                                    <option value="bulan" {{ old('duration') == 'bulan' ? 'selected' : '' }}>
+                                        Perbulan</option>
+                                    <option value="tahun" {{ old('duration') == 'tahun' ? 'selected' : '' }}>Rertahun
+                                    </option>
+                                </select>
+
+                                @error('status')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>

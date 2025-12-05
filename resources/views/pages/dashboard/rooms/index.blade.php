@@ -36,7 +36,7 @@
                                 <td>{{ $item->number }}</td>
                                 <td>{{ $item->name }}</td>
                                 <td>{{ $item->kamar_tersedia }} Kamar</td>
-                                <td>Rp {{ number_format($item->tarif, 0, ',', '.') }}</td>
+                                <td>Rp {{ number_format($item->tarif, 0, ',', '.') }}/{{$item->duration}}</td>
                                 <td>{{ $item->fasilities->count() }} Fasilitas</td>
                                 @if ($item->status == 'belum terpakai')
                                     <td><span class="badge bg-success">Tersedia</span></td>

@@ -28,11 +28,12 @@ class SettingController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
+    {   
         $request->validate([
             'site_name' => 'required',
             'whatsapp' => 'nullable',
             'address' => 'nullable',
+            'email' => 'nullable|email',
             'logo' => 'nullable|image|max:2048'
         ]);
 
@@ -47,7 +48,7 @@ class SettingController extends Controller
         }
 
         // Save basic settings
-        $fields = ['site_name', 'whatsapp', 'address'];
+        $fields = ['site_name', 'whatsapp', 'address','email'];
 
         foreach ($fields as $field) {
             Setting::updateOrCreate(

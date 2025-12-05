@@ -12,7 +12,8 @@ class Room extends Model
         'status',
         'description',
         'name',
-        'kamar_tersedia'
+        'kamar_tersedia',
+        'duration',
     ];
 
     public function fasilities()

@@ -52,7 +52,7 @@
                     </div>
                     <div>
                         <p class="font-medium text-sm text-gray-500">Durasi Sewa:</p>
-                        <p class="font-semibold" id="duration">1 Bulan</p>
+                        <p class="font-semibold capitalize" id="duration">{{ $booking->duration }}{{$booking->room->duration}}</p>
                     </div>
                     <div>
                         <p class="font-medium text-sm text-gray-500">Status Booking:</p>
@@ -68,21 +68,21 @@
                     <div>
                         <p class="font-medium text-sm text-gray-500">Total Harga Sewa:</p>
                         <p class="font-bold text-lg text-gray-800" id="total-price">
-                            Rp {{ number_format($booking->room->tarif, 0, ',', '.') }}
+                            Rp {{ number_format($booking->total, 0, ',', '.') }}
                         </p>
                     </div>
 
                     <div>
                         <p class="font-medium text-sm text-gray-500">DP (Uang Muka) Dibayar:</p>
                         <p class="font-bold text-lg text-green-600" id="dp-paid">
-                            Rp {{ number_format($booking->room->tarif / 2, 0, ',', '.') }}
+                            Rp {{ number_format($booking->total / 2, 0, ',', '.') }}
                         </p>
                     </div>
 
                     <div class="sm:col-span-2">
                         <p class="font-medium text-sm text-gray-500">Sisa Pembayaran (Pelunasan saat Check-in):</p>
                         <p class="font-bold text-xl text-red-600" id="remaining-balance">
-                            Rp {{ number_format($booking->room->tarif / 2, 0, ',', '.') }}
+                            Rp {{ number_format($booking->total / 2, 0, ',', '.') }}
                         </p>
                     </div>
                 </div>
@@ -91,14 +91,15 @@
 
             <!-- Next Steps & CTA -->
             <div class="mt-6">
-                <h3 class="text-lg font-semibold text-gray-700 mb-3">Langkah Selanjutnya</h3>
-                <ol class="list-decimal list-inside text-sm text-gray-600 space-y-2 px-4">
+                <h3 class="text-lg font-semibold text-gray-700 mb-3">Langkah Selanjutnya silakan konfirmasi ke owner
+                    kost bahwa anda sudah melakukan booking</h3>
+                {{-- <ol class="list-decimal list-inside text-sm text-gray-600 space-y-2 px-4">
                     <li>Mohon tunggu notifikasi konfirmasi dari Admin dalam waktu maksimal 1x24 jam.</li>
                     <li>Kami akan menghubungi Anda melalui Email (<span
                             id="tenant-email">{{ $booking->tenant->phone }}</span>)</li>
                     <li>Setelah dikonfirmasi, Anda dapat melanjutkan ke proses pelunasan sisa pembayaran saat check-in.
                     </li>
-                </ol>
+                </ol> --}}
             </div>
 
             <div class="d-flex">
@@ -113,10 +114,10 @@
                     );
                 @endphp
 
-                <a href="https://wa.me/{{ $waNumber }}?text={{ $message }}"
+                {{-- <a href="https://wa.me/{{ $waNumber }}?text={{ $message }}"
                     class="inline-block mt-8 bg-green-600 text-white font-bold py-3 px-8 rounded-xl hover:bg-green-700 transition duration-300 shadow-md">
                     Konfirmasi WhatsApp
-                </a>
+                </a> --}}
             </div>
 
 

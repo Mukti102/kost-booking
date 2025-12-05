@@ -9,9 +9,9 @@
                 <h5 class="card-title">Data Penyewaan Kost</h5>
 
                 <!-- Button Add -->
-                <a href="{{ route('bookings.create') }}" class="btn btn-primary">
+                {{-- <a href="{{ route('bookings.create') }}" class="btn btn-primary">
                     <i class="bi bi-plus"></i> Tambah Penyewaan
-                </a>
+                </a> --}}
             </div>
 
             <div class="card-body">

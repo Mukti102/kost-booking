@@ -35,7 +35,8 @@
                             <div class=" mb-3">
                                 <label class="mb-2">Nama</label>
                                 <input type="text" name="name"
-                                    class="form-control @error('name') is-invalid @enderror" value="{{ old('name', $room->name) }}">
+                                    class="form-control @error('name') is-invalid @enderror"
+                                    value="{{ old('name', $room->name) }}">
 
                                 @error('name')
                                     <small class="text-danger">{{ $message }}</small>
@@ -47,7 +48,8 @@
                             <div class=" mb-3">
                                 <label class="mb-2">Kamar Tersedia</label>
                                 <input type="number" name="kamar_tersedia"
-                                    class="form-control @error('kamar_tersedia') is-invalid @enderror" value="{{ old('kamar_tersedia', $room->kamar_tersedia) }}">
+                                    class="form-control @error('kamar_tersedia') is-invalid @enderror"
+                                    value="{{ old('kamar_tersedia', $room->kamar_tersedia) }}">
 
                                 @error('kamar_tersedia')
                                     <small class="text-danger">{{ $message }}</small>
@@ -59,11 +61,27 @@
                                 <label class="mb-2">Tarif</label>
                                 <div class="input-group mb-3">
                                     <span class="input-group-text">Rp</span>
-                                    <input name="tarif" type="number" class="form-control" placeholder="Tarif Perbulan"
+                                    <input name="tarif" type="number" class="form-control" placeholder="Tarif"
                                         value="{{ old('tarif', $room->tarif) }}">
                                 </div>
 
                                 @error('tarif')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+
+
+                            <div class=" mb-3">
+                                <label class="mb-2">Durasi</label>
+                                <select name="duration" class="form-control @error('duration') is-invalid @enderror">
+                                    <option value="">-- Pilih Durasi --</option>
+                                    <option {{$room->duration == 'bulan' ? 'selected' : ""}} value="bulan" {{ old('duration') == 'bulan' ? 'selected' : '' }}>
+                                        Bulan</option>
+                                    <option {{$room->duration == 'tahun' ? 'selected' : ""}} value="tahun" {{ old('duration') == 'tahun' ? 'selected' : '' }}>Tahun
+                                    </option>
+                                </select>
+
+                                @error('status')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>

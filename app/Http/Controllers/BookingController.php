@@ -156,6 +156,8 @@ class BookingController extends Controller
             'status' => 'belum terpakai'
         ]);
 
+        $booking->tenant()->delete();
+
         // hapus booking
         $booking->delete();
 

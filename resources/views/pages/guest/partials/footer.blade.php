@@ -26,7 +26,7 @@
             </div>
             <div class="text-lg">
                 <p class="mb-2">Phone: {{ setting('whatsapp') }}</p>
-                <p>Alamat: {{ setting('address') }}</p>
+                <p>Alamat E-mail: {{ setting('email') }}</p>
             </div>
         </div>
     </div>

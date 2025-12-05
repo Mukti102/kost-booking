@@ -12,12 +12,16 @@
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     @include('includes.style');
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-     @livewireStyles
+    @livewireStyles
+    @toastifyCss
+
 </head>
 
 <body class="">
@@ -28,6 +32,9 @@
         const slides = document.querySelectorAll('.slide');
         const indicators = document.querySelectorAll('.indicator');
         const slideContainer = document.getElementById('slideContainer');
+
+
+
 
         function showSlide(index) {
             if (index >= slides.length) currentSlide = 0;
@@ -80,6 +87,7 @@
             });
         });
     </script>
+    @toastifyJs
     @livewireScripts
 </body>
 

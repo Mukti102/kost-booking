@@ -52,8 +52,8 @@
                 </div>
             </div>
 
-            @livewire('booking-form', ['room' => $room]);
-        </div>p
+            @livewire('booking-form', ['room' => $room])
+        </div>
 
     </div>
 

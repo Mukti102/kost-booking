@@ -5,7 +5,7 @@
             <h2 class="text-2xl font-bold text-primary mb-4">Formulir Booking Kamar</h2>
 
             <div id="price-card" class="mb-4 p-4 bg-indigo-50 rounded-lg border border-indigo-300">
-                <p class="text-sm font-semibold text-indigo-700 mb-1">Harga per Bulan</p>
+                <p class="text-sm font-semibold text-indigo-700 mb-1 capitalize">Harga Per {{ $room->duration }}</p>
                 <p class="text-3xl font-extrabold text-indigo-800">
                     Rp
                     {{ number_format($room->tarif, 0, ',', '.') }}
@@ -17,31 +17,33 @@
                 <!-- Pilihan Durasi Sewa -->
                 <div class="mb-4">
                     <label for="duration" class="block text-sm font-medium text-gray-700 mb-1">Durasi Sewa
-                        (Bulan)</label>
-                    <input type="number" readonly id="duration" name="duration" min="1" max="12"
-                        value="1" required
+                        ({{ $room->duration }})</label>
+                    <input wire:model="durationInput" type="number" id="duration" name="duration" min="1"
+                        max="12" value="1" required
                         class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 transition duration-150">
                 </div>
 
                 <!-- Kalkulasi Harga -->
                 <div class="mb-6 p-4 bg-gray-50 rounded-lg">
                     <div class="flex justify-between text-sm text-gray-700 mb-1">
-                        <span>Total Sewa (<span id="calc-duration">1</span> bulan):</span>
+                        <span>Total Sewa (<span id="calc-duration">{{ $durationInput }}</span>
+                            {{ $room->duration }}):</span>
                         <span class="font-semibold text-gray-800" id="calc-total-price">
-                            Rp
-                            {{ number_format($room->tarif, 0, ',', '.') }}
+                            Rp {{ number_format($this->total, 0, ',', '.') }}
                         </span>
                     </div>
+
                     <div
                         class="flex justify-between text-base font-semibold text-red-600 border-t pt-2 mt-2 border-red-200">
                         <span>DP (50%) yang Harus Dibayar:</span>
                         <span id="calc-dp-price">
-                            Rp
-                            {{ number_format($room->tarif / 2, 0, ',', '.') }}
+                            Rp {{ number_format($this->dP, 0, ',', '.') }}
                         </span>
                     </div>
+
                     <p class="text-xs text-gray-500 mt-2">Sisa pembayaran dilunasi saat check-in.</p>
                 </div>
+
 
                 <h3 class="text-lg font-semibold text-gray-700 mb-3 border-t pt-4">Data Calon Penyewa</h3>
 
@@ -74,9 +76,9 @@
 
                 <!-- No. Telepon (Tenant: phone) -->
                 <div class="mb-4">
-                    <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Nomor Telepon
-                        (Opsional)</label>
-                    <input wire:model="phone" type="tel" id="phone" name="phone"
+                    <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Nomor
+                        Telepon/Whatsapp</label>
+                    <input required wire:model="phone" type="tel" id="phone" name="phone"
                         class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500">
                 </div>
 
@@ -88,17 +90,6 @@
                         class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500"></textarea>
                 </div>
 
-                <div class="mb-4">
-                    <label for="gender" class="block text-sm font-medium text-gray-700 mb-1">Jenis
-                        Pembayaran</label>
-                    <select wire:model="typePayment" id="typePayment" name="typePayment" required
-                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 appearance-none">
-                        <option value="">Pilih Metode Pembayaran</option>
-                        @foreach ($typePayments as $item)
-                            <option value="{{ $item->id }}">{{ $item->name }}</option>
-                        @endforeach
-                    </select>
-                </div>
 
                 <!-- Submit Button -->
                 <button type="submit"
@@ -120,16 +111,14 @@
                 <p class="text-sm text-gray-600 mb-4">Silahkan cek detail booking dan upload bukti pembayaran.</p>
 
                 <div class="bg-gray-100 rounded-lg p-4 mb-4">
-                    <p><strong>Durasi:</strong> {{ $duration }} Bulan</p>
-                    <p><strong>Harga/bulan:</strong> Rp {{ number_format($room->tarif, 0, ',', '.') }}</p>
-                    <p><strong>Total:</strong> Rp {{ number_format($room->tarif * $duration, 0, ',', '.') }}</p>
-                    <p class="text-red-600 font-bold">
-                        DP (50%) = Rp {{ number_format(($room->tarif * $duration) / 2, 0, ',', '.') }}
-                    </p>
+                    <p><strong>Durasi:</strong> {{ $durationInput }} {{ $room->duration }}</p>
+                    <p><strong>Total:</strong> Rp {{ number_format($room->tarif * $durationInput, 0, ',', '.') }}</p>
+                    <p class="text-red-600 font-bold">DP (50%) = Rp
+                        {{ number_format(($room->tarif * $durationInput) / 2, 0, ',', '.') }}</p>
                 </div>
 
                 <div class="bg-indigo-50 border border-indigo-200 p-3 rounded-lg mb-4">
-                    <p class="font-semibold text-indigo-700">TRANSFER DP KE REKENING:</p>
+                    <p class="font-semibold text-indigo-700">TRANSFER DP KE REKENING {{ $bankAccount->name }}:</p>
                     <p class="text-indigo-900 font-bold">{{ $bankAccount->no_rekening }}</p>
                 </div>
 
@@ -156,4 +145,12 @@
     @endif
 
 
+
 </div>
+<script>
+    document.addEventListener('livewire:init', () => {
+        window.addEventListener('reload-browser', () => {
+            window.location.reload();
+        });
+    });
+</script>

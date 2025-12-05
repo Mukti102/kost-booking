@@ -32,6 +32,14 @@
                        class="form-control" placeholder="628xxxxxx">
             </div>
 
+            {{-- email --}}
+            <div class="mb-3">
+                <label class="form-label">Email</label>
+                <input type="email" name="email"
+                       value="{{ $settings['email'] ?? '' }}"
+                       class="form-control" placeholder="Example@gmail.com">
+            </div>
+
             {{-- Address --}}
             <div class="mb-3">
                 <label class="form-label">Alamat</label>
