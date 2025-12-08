@@ -8,7 +8,7 @@
              <a href="/" class="logo-wrapper flex items-center space-x-3">
                  <div class="relative">
 
-                     <img class="relative w-10 h-10 md:w-12 md:h-12 rounded-xl" src="{{ asset('storage/' . setting('site_logo')) }}"
+                     <img class="relative w-10 h-10 md:w-16 md:h-16 rounded-xl" src="{{ asset('storage/' . setting('site_logo')) }}"
                          alt="KostQu Logo">
                  </div>
                  <span
