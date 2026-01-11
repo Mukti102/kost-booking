@@ -12,7 +12,7 @@
                 </p>
             </div>
 
-            <form wire:submit.prevent="openConfirmModal">
+            <form wire:submit.prevent="submitBooking">
 
                 <!-- Pilihan Durasi Sewa -->
                 <div class="mb-4">
@@ -49,60 +49,95 @@
 
                 <!-- Nama Lengkap (Tenant: full_name) -->
                 <div class="mb-4">
-                    <label for="full_name" class="block text-sm font-medium text-gray-700 mb-1">Nama
-                        Lengkap</label>
-                    <input type="text" wire:model="full_name" id="full_name" name="full_name" required
-                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">
+                        Nama Lengkap
+                    </label>
+
+                    <input type="text" wire:model.defer="full_name"
+                        class="w-full px-4 py-2 border rounded-lg
+        @error('full_name') border-red-500 @else border-gray-300 @enderror
+        focus:ring-indigo-500 focus:border-indigo-500">
+
+                    @error('full_name')
+                        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                    @enderror
                 </div>
+
 
                 <!-- Email (Tenant: email) -->
                 <div class="mb-4">
-                    <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
-                    <input type="email" wire:model="email" id="email" name="email" required
-                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+
+                    <input type="email" wire:model.defer="email"
+                        class="w-full px-4 py-2 border rounded-lg
+        @error('email') border-red-500 @else border-gray-300 @enderror">
+
+                    @error('email')
+                        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                    @enderror
                 </div>
+
 
                 <!-- Jenis Kelamin (Tenant: gender) -->
                 <div class="mb-4">
-                    <label for="gender" class="block text-sm font-medium text-gray-700 mb-1">Jenis
-                        Kelamin</label>
-                    <select wire:model="gender" id="gender" name="gender" required
-                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 appearance-none">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Jenis Kelamin</label>
+
+                    <select wire:model.defer="gender"
+                        class="w-full px-4 py-2 border rounded-lg
+        @error('gender') border-red-500 @else border-gray-300 @enderror">
                         <option value="">Pilih Jenis Kelamin</option>
                         <option value="laki-laki">Laki-laki</option>
                         <option value="perempuan">Perempuan</option>
                     </select>
+
+                    @error('gender')
+                        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                    @enderror
                 </div>
+
 
                 <!-- No. Telepon (Tenant: phone) -->
                 <div class="mb-4">
-                    <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Nomor
-                        Telepon/Whatsapp</label>
-                    <input required wire:model="phone" type="tel" id="phone" name="phone"
-                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Nomor Telepon</label>
+
+                    <input type="tel" wire:model.defer="phone"
+                        class="w-full px-4 py-2 border rounded-lg
+        @error('phone') border-red-500 @else border-gray-300 @enderror">
+
+                    @error('phone')
+                        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                    @enderror
                 </div>
+
 
                 <!-- Alamat (Tenant: address) -->
                 <div class="mb-6">
-                    <label for="address" class="block text-sm font-medium text-gray-700 mb-1">Alamat Lengkap
-                        (Opsional)</label>
-                    <textarea wire:model="address" id="address" name="address" rows="3"
-                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500"></textarea>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Alamat</label>
+
+                    <textarea wire:model.defer="address" rows="3"
+                        class="w-full px-4 py-2 border rounded-lg
+        @error('address') border-red-500 @else border-gray-300 @enderror">
+    </textarea>
+
+                    @error('address')
+                        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                    @enderror
                 </div>
 
 
+
                 <!-- Submit Button -->
-                <button type="submit"
-                    class="w-full bg-primary text-white font-bold py-3 px-4 rounded-xl hover:bg-indigo-700 transition duration-300 shadow-md hover:shadow-lg focus:outline-none focus:ring-4 focus:ring-indigo-500 focus:ring-opacity-50">
-                    Booking Sekarang & Bayar DP
+                <button class="px-4 py-2 rounded-lg bg-primary text-white hover:bg-indigo-700">
+                    Bayar DP Sekarang
                 </button>
+
             </form>
         </div>
     </div>
 
 
     <!-- Confirmation Modal (Pengganti alert) -->
-    @if ($showModal)
+    {{-- @if ($showModal)
         <div class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
             <div class="bg-white rounded-xl p-6 w-full max-w-lg shadow-xl">
 
@@ -142,15 +177,33 @@
                 </div>
             </div>
         </div>
-    @endif
+    @endif --}}
 
 
 
 </div>
+<script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="{{ config('midtrans.client_key') }}">
+</script>
 <script>
+    // document.addEventListener('livewire:init', () => {
+    //     window.addEventListener('reload-browser', () => {
+    //         window.location.reload();
+    //     });
+    // });
+
     document.addEventListener('livewire:init', () => {
-        window.addEventListener('reload-browser', () => {
-            window.location.reload();
+        Livewire.on('open-midtrans', data => {
+            snap.pay(data.token, {
+                onSuccess: function(result) {
+                    window.location.href = "/booking/success/" + data.bookingId;
+                },
+                onPending: function(result) {
+                    alert('Menunggu pembayaran');
+                },
+                onError: function(result) {
+                    alert('Pembayaran gagal');
+                }
+            });
         });
     });
 </script>

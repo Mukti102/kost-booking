@@ -46,14 +46,14 @@
                                     @endif
                                 </td>
                                 <td>
-                                    <a href="{{ route('bookings.show', $item->id) }}" class="btn btn-sm btn-secondary">
+                                    {{-- <a href="{{ route('bookings.show', $item->id) }}" class="btn btn-sm btn-secondary">
                                         <i class="bi bi-receipt"></i> Cek
                                     </a>
 
                                     <button class="btn btn-sm btn-success" data-bs-toggle="modal"
                                         data-bs-target="#modalPembayaran{{ $item->id }}">
                                         <i class="bi bi-cash"></i> Bayar
-                                    </button>
+                                    </button> --}}
 
                                     <!-- Detail -->
                                     <button class="btn btn-sm btn-info" data-bs-toggle="modal"
@@ -121,6 +121,18 @@
                                                                     class="badge bg-{{ $item->status == 'pending' ? 'secondary' : ($item->status == 'diterima' ? 'success' : 'danger') }}">
                                                                     {{ ucfirst($item->status) }}
                                                                 </span>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Status Pembayaran</th>
+                                                            <td>
+                                                                {{ $item->payment->transaction_status }}
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Metode Pembayaran</th>
+                                                            <td>
+                                                                {{ $item->payment->payment_type }}
                                                             </td>
                                                         </tr>
                                                     </table>

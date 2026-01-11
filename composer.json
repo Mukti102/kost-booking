@@ -12,6 +12,7 @@
         "laravel/framework": "^11.0",
         "laravel/tinker": "^2.9",
         "livewire/livewire": "^3.7",
+        "midtrans/midtrans-php": "^2.6",
         "redot/laravel-toastify": "^1.0"
     },
     "require-dev": {

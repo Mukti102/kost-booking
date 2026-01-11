@@ -9,144 +9,163 @@ use App\Models\TypePayment;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
-use Livewire\WithFileUploads;
+use Midtrans\Snap;
+use Midtrans\Config;
 use Throwable;
 
 class BookingForm extends Component
 {
-    use WithFileUploads;
-
     public $room;
-    public $typePayments;
 
-    // form input values
+    // form input
     public $full_name, $email, $gender, $phone, $address;
-    public $typePayment;
 
-    // durasi default 1 bulan/tahun
-    public $durationInput = 1; // dipakai user
-    public $duration = 1; // sinkron database
+    public $durationInput = 1;
+    public $duration = 1;
 
     public $showModal = false;
-    public $payment_proof;
-    public $bankAccount;
-
 
     public function mount($room)
     {
         $this->room = $room;
-        $this->typePayments = TypePayment::all();
     }
 
-    /** Sinkronkan durationInput → duration (database + modal) */
     public function updatedDurationInput($value)
     {
         $this->duration = $value;
     }
 
-    /** VALIDASI */
     protected $rules = [
-        'full_name'   => 'required|string|max:255',
-        'email'       => 'required|email|unique:tenants,email',
-        'gender'      => 'required',
-        'phone'       => 'required|string|max:20',
-        'address'     => 'nullable|string',
-        'durationInput' => 'required|numeric|min:1|max:12'
+        'full_name' => 'required|string|max:255',
+        'email' => 'required|email|unique:tenants,email',
+        'gender' => 'required',
+        'phone' => 'required|string|max:20',
+        'address' => 'nullable|string',
+        'durationInput' => 'required|numeric|min:1|max:12',
     ];
 
-    /** Modal Konfirmasi */
     public function openConfirmModal()
     {
-        try {
-            $this->validate();
-
-            $this->bankAccount = TypePayment::first();
-            $this->showModal = true;
-        } catch (\Illuminate\Validation\ValidationException $e) {
-
-            foreach ($e->validator->errors()->all() as $error) {
-                toastify()->error($error);
-            }
-
-            // Trigger browser reload via JS
-            $this->dispatch('reload-browser');
-
-            return; // stop execution
-        }
+        $this->validate();
+        $this->showModal = true;
     }
 
-
-
-    /** Computed: Total Harga */
     public function getTotalProperty()
     {
         return $this->room->tarif * $this->durationInput;
     }
 
-    /** Computed: DP (50%) */
     public function getDPProperty()
     {
         return $this->total / 2;
     }
 
-    /** Submit Booking */
     public function submitBooking()
     {
-        $this->validate([
-            'payment_proof' => 'required|image|max:2048'
-        ]);
+        $this->validate(
+            [
+                'full_name'     => 'required|string|max:255',
+                'email'         => 'required|email|unique:tenants,email',
+                'gender'        => 'required|in:laki-laki,perempuan',
+                'phone'         => 'required|string|max:20',
+                'address'       => 'nullable|string',
+                'durationInput' => 'required|numeric|min:1|max:12',
+            ],
+            [
+                // full_name
+                'full_name.required' => 'Nama lengkap wajib diisi.',
+                'full_name.string'   => 'Nama lengkap harus berupa teks.',
+                'full_name.max'      => 'Nama lengkap maksimal 255 karakter.',
 
-        // Hitung biaya pakai durationInput
-        $total = $this->room->tarif * $this->durationInput;
-        $dp = $total / 2;
+                // email
+                'email.required' => 'Email wajib diisi.',
+                'email.email'    => 'Format email tidak valid.',
+                'email.unique'   => 'Email sudah terdaftar.',
 
-        // Upload Bukti pembayaran
-        $proofPath = $this->payment_proof->store('payments', 'public');
+                // gender
+                'gender.required' => 'Jenis kelamin wajib dipilih.',
+                'gender.in'       => 'Jenis kelamin tidak valid.',
+
+                // phone
+                'phone.required' => 'Nomor telepon wajib diisi.',
+                'phone.string'   => 'Nomor telepon harus berupa teks.',
+                'phone.max'      => 'Nomor telepon maksimal 20 karakter.',
+
+                // address
+                'address.string' => 'Alamat harus berupa teks.',
+
+                // duration
+                'durationInput.required' => 'Durasi sewa wajib diisi.',
+                'durationInput.numeric'  => 'Durasi harus berupa angka.',
+                'durationInput.min'      => 'Durasi minimal 1 bulan.',
+                'durationInput.max'      => 'Durasi maksimal 12 bulan.',
+            ]
+        );
+
+
+        DB::beginTransaction();
 
         try {
+            $total = $this->total;
+            $dp = $this->dP;
 
-            DB::beginTransaction();
-
-            // Simpan Tenant
+            // Tenant
             $tenant = Tenant::create([
                 'full_name' => $this->full_name,
-                'email'     => $this->email,
-                'gender'    => $this->gender,
-                'phone'     => $this->phone,
-                'address'   => $this->address,
+                'email' => $this->email,
+                'gender' => $this->gender,
+                'phone' => $this->phone,
+                'address' => $this->address,
             ]);
 
-            $numberUnique = 'BK-' . str_pad((Booking::max('id') + 1), 3, '0', STR_PAD_LEFT);
+            $orderId = 'KOST-' . time();
 
-            // Simpan Booking
+            // Booking
             $booking = Booking::create([
-                'code'      => $numberUnique,
-                'room_id'   => $this->room->id,
+                'code' => $orderId,
+                'room_id' => $this->room->id,
                 'tenant_id' => $tenant->id,
-                'duration'  => $this->durationInput, // ← sudah benar
-                'total'     => $total,
-                'status'    => 'pending',
+                'duration' => $this->durationInput,
+                'total' => $total,
+                'status' => 'pending',
             ]);
 
-
-            // Simpan Payment
-            Payment::create([
-                'booking_id'      => $booking->id,
-                'type_payment_id' => $this->bankAccount->id,
-                'amount'          => $dp,
-                'payment_proof'   => $proofPath,
-                'status'          => 'pending'
+            // Payment
+            $payment = Payment::create([
+                'booking_id' => $booking->id,
+                'amount' => $dp,
+                'type_payment_id' => TypePayment::first()->id,
+                'payment_proof' => '0',
+                'status' => 'pending',
+                'transaction_status' => 'pending',
             ]);
+
+            // MIDTRANS CONFIG
+            Config::$serverKey = config('midtrans.server_key');
+            Config::$isProduction = config('midtrans.is_production');
+            Config::$isSanitized = true;
+            Config::$is3ds = true;
+
+            $params = [
+                'transaction_details' => [
+                    'order_id' => $orderId,
+                    'gross_amount' => (int) $dp,
+                ],
+                'customer_details' => [
+                    'first_name' => $this->full_name,
+                    'email' => $this->email,
+                    'phone' => $this->phone,
+                ],
+            ];
+
+            $snapToken = Snap::getSnapToken($params);
 
             DB::commit();
 
-            $this->reset();
-
-            session()->flash('success', 'Booking berhasil, admin akan konfirmasi pembayaran Anda.');
-            return redirect()->route('booking.success', Crypt::encrypt($booking->id));
+            $this->dispatch('open-midtrans', token: $snapToken,  bookingId: Crypt::encrypt($booking->id));
         } catch (Throwable $e) {
             DB::rollBack();
-            return redirect()->back()->with('error', 'Terjadi kesalahan saat pemrosesan booking.');
+            toastify()->error('Gagal memproses booking');
         }
     }
 

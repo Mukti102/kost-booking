@@ -5,6 +5,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FasilityController;
 use App\Http\Controllers\GuestController;
 use App\Http\Controllers\ImagesController;
+use App\Http\Controllers\MidtransCallbackController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoomController;
@@ -17,8 +18,8 @@ use App\Models\Payment;
 use App\Models\Room;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/',[GuestController::class,'index'])->name('guest.index');
-Route::get('/kamar/{id}',[GuestController::class,'showRoom'])->name('showRoom');
+Route::get('/', [GuestController::class, 'index'])->name('guest.index');
+Route::get('/kamar/{id}', [GuestController::class, 'showRoom'])->name('showRoom');
 
 Route::middleware('auth')->group(function () {
     // dashboard
@@ -29,23 +30,36 @@ Route::middleware('auth')->group(function () {
     Route::resource('tenants', TenantController::class);
     Route::resource('bookings', BookingController::class);
     Route::resource('payments', PaymentController::class);
-    Route::resource('testimoni',TestimoniController::class);
+    Route::resource('testimoni', TestimoniController::class);
 
     // gambar rooms
-    Route::get('/images/room/{id}',[ImagesController::class,'index'])->name('images.index');
-    Route::post('/images',[ImagesController::class,'store'])->name('images.store');
-    Route::delete('/images/{id}',[ImagesController::class,'destroy'])->name('images.destroy');
+    Route::get('/images/room/{id}', [ImagesController::class, 'index'])->name('images.index');
+    Route::post('/images', [ImagesController::class, 'store'])->name('images.store');
+    Route::delete('/images/{id}', [ImagesController::class, 'destroy'])->name('images.destroy');
 
     //confirm payment
     Route::put('/payments/{payment}/confirm', [PaymentController::class, 'confirm'])->name('payments.confirm');
     Route::put('/payments/{payment}/reject', [PaymentController::class, 'reject'])->name('payments.reject');
-    Route::get('suuccess-payment/{id}',[PaymentController::class,'success'])->name('booking.success');
+    Route::get('suuccess-payment/{id}', [PaymentController::class, 'success'])->name('booking.success');
 
 
-    Route::resource('settings',SettingController::class);
+    Route::resource('settings', SettingController::class);
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+Route::post('/midtrans/callback', [MidtransCallbackController::class, 'handle']);
+
+Route::get('/booking/success/{id}', function ($id) {
+    $bookingId = decrypt($id);
+    
+    $booking = Booking::with(['tenant', 'room', 'payment'])
+    ->findOrFail($bookingId);
+
+
+    return view('pages.guest.success', compact('booking'));
+})->name('booking.success');
+
 
 require __DIR__ . '/auth.php';

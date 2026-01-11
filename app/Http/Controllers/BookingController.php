@@ -18,7 +18,7 @@ class BookingController extends Controller
         $tenants = Tenant::all();
         $rooms = Room::where('status', 'belum terpakai')->get();
         $numberUnique = 'BK-' . str_pad((Booking::max('id') + 1), 3, '0', STR_PAD_LEFT);
-        $bookings = Booking::with('tenant', 'room')->get();
+        $bookings = Booking::with('tenant', 'room', 'payment')->get();
         $typePayments = TypePayment::all();
         return view('pages.dashboard.bookings.index', compact('tenants', 'rooms', 'numberUnique', 'bookings', 'typePayments'));
     }

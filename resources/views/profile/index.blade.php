@@ -24,8 +24,7 @@
 
                         <div class="mb-3">
                             <label class="form-label">Nama Lengkap</label>
-                            <input type="text" name="name" class="form-control" value="{{ $user->name }}"
-                                required>
+                            <input type="text" name="name" class="form-control" value="{{ $user->name }}" required>
                             @error('name')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
@@ -34,6 +33,10 @@
                         <div class="mb-3">
                             <label class="form-label">Email</label>
                             <input type="email" name="email" class="form-control" value="{{ auth()->user()->email }}">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Nomor Telephone</label>
+                            <input type="number" placeholder="08****" name="phone" class="form-control" value="{{ $user->phone }}">
                         </div>
 
                         <button class="btn btn-primary">Simpan Perubahan</button>

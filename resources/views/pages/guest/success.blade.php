@@ -52,7 +52,7 @@
                     </div>
                     <div>
                         <p class="font-medium text-sm text-gray-500">Durasi Sewa:</p>
-                        <p class="font-semibold capitalize" id="duration">{{ $booking->duration }}{{$booking->room->duration}}</p>
+                        <p class="font-semibold capitalize" id="duration">{{ $booking->duration }}{{' '}}{{$booking->room->duration}}</p>
                     </div>
                     <div>
                         <p class="font-medium text-sm text-gray-500">Status Booking:</p>
@@ -91,8 +91,8 @@
 
             <!-- Next Steps & CTA -->
             <div class="mt-6">
-                <h3 class="text-lg font-semibold text-gray-700 mb-3">Langkah Selanjutnya silakan konfirmasi ke owner
-                    kost bahwa anda sudah melakukan booking</h3>
+                {{-- <h3 class="text-lg font-semibold text-gray-700 mb-3">Langkah Selanjutnya silakan konfirmasi ke owner
+                    kost bahwa anda sudah melakukan booking</h3> --}}
                 {{-- <ol class="list-decimal list-inside text-sm text-gray-600 space-y-2 px-4">
                     <li>Mohon tunggu notifikasi konfirmasi dari Admin dalam waktu maksimal 1x24 jam.</li>
                     <li>Kami akan menghubungi Anda melalui Email (<span
